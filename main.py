@@ -56,7 +56,7 @@ def remove_from_order(parameters:dict,session_id:str):
         fulfillmenttext="you order is empty"
 
     order_str=generic_helper.get_str_from_food_dict(current_order)
-    fulfillmenttext+=f" your current order contains {order_str}"
+    fulfillmenttext+=f" Your current order contains {order_str}"
 
     return JSONResponse(content={"fulfillmentText":fulfillmenttext})
 
@@ -84,13 +84,13 @@ def add_to_order(parameters:dict,session_id:str):
         order_str=generic_helper.get_str_from_food_dict(inprogress_orders[session_id])
 
 
-        fulfillmenttext=f"so far you have ordered {order_str} \n anything else ?"
+        fulfillmenttext=f"So far you have ordered {order_str} \n anything else ?"
 
     return JSONResponse(content={"fulfillmentText":fulfillmenttext})
 
 def complete_order(parameters:dict,session_id:str):
     if session_id not in inprogress_orders:
-        fulfillmenttext="No order please order again"
+        fulfillmenttext="No order found... please order again"
     else:
         order=inprogress_orders[session_id]
         order_id=save_to_db(order)
@@ -124,8 +124,8 @@ def track_order(parameters:dict,sesssion_id:str):
     order_status=db_helper.get_order_status(order_id)
 
     if order_status:
-        fulfillmenttext=f"Order Status: {order_status} for OrderId: {order_id}"
+        fulfillmenttext=f"Order Status: {order_status} for Order Id: {order_id}"
     else:
-        fulfillmenttext=f"No order found with OrderId: {order_id}"
+        fulfillmenttext=f"No order found with Order Id: {order_id}"
 
     return JSONResponse(content={"fulfillmentText":fulfillmenttext})
